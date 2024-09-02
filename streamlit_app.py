@@ -156,17 +156,24 @@ cust_data = {
 
 
 # Botón para predecir
-if st.button('Check data'):
+if st.button('Predecir'):
     input_df = pd.DataFrame.from_dict(cust_data, orient='index').T
     preprocessed_data = try_sex(input_df)
 
     # Asegúrate de que las columnas están en el orden correcto
     trained_features = model.get_booster().feature_names
-    st.write(preprocessed_data)
+    
     preprocessed_data = preprocessed_data[trained_features]
     
     # Realizar la predicción
     prediction = model.predict(preprocessed_data)
-    st.write("Prediction:", prediction)
 
+    st.write("Predicción:")
+    
+    if prediction[0] == 1:
+        st.success("El ingreso de la persona es mayor a $50,000 al año.")
+    else:
+        st.error("El ingreso de la persona es menor o igual a $50,000 al año.")
 
+    st.write("Datos proporcionados:")
+    st.dataframe(cust_data)
