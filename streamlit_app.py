@@ -1,8 +1,8 @@
 import streamlit as st
 import pandas as pd
-from sklearn.preprocessing import LabelEncoder, StandardScaler
 import pickle
 import numpy as np
+
 
 with open('mejor_modelo.pkl', 'rb') as file:
     model = pickle.load(file)
